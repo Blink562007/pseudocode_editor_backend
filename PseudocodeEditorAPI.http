@@ -1,0 +1,6 @@
+@PseudocodeEditorAPI_HostAddress = http://localhost:5062
+
+GET {{PseudocodeEditorAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

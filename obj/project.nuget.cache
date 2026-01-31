@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Z+U4KSs63u4=",
+  "success": true,
+  "projectFilePath": "/Users/chenghaoli/Projects/pseudocode_editor_backend/PseudocodeEditorAPI.csproj",
+  "expectedPackageFiles": [
+    "/Users/chenghaoli/.nuget/packages/microsoft.aspnetcore.openapi/9.0.10/microsoft.aspnetcore.openapi.9.0.10.nupkg.sha512",
+    "/Users/chenghaoli/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
