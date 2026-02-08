@@ -23,3 +23,18 @@ public class UpdatePseudocodeRequest
     public string Content { get; set; } = string.Empty;
     public string Language { get; set; } = "pseudocode";
 }
+
+public class ValidateContentRequest
+{
+    public string Content { get; set; } = string.Empty;
+}
+
+public class FormatContentRequest
+{
+    public string Content { get; set; } = string.Empty;
+}
+
+public class FormatContentResponse
+{
+    public string FormattedContent { get; set; } = string.Empty;
+}

@@ -1,3 +1,5 @@
+using PseudocodeEditorAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,11 @@ builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Register business layer services
+builder.Services.AddScoped<IPseudocodeService, PseudocodeService>();
+builder.Services.AddScoped<IPseudocodeValidationService, PseudocodeValidationService>();
+builder.Services.AddScoped<IPseudocodeFormattingService, PseudocodeFormattingService>();
 
 // Add CORS policy
 builder.Services.AddCors(options =>

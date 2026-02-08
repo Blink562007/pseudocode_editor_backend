@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PseudocodeEditorAPI.Models;
+using PseudocodeEditorAPI.Services;
 
 namespace PseudocodeEditorAPI.Controllers;
 
@@ -7,25 +8,30 @@ namespace PseudocodeEditorAPI.Controllers;
 [Route("api/[controller]")]
 public class PseudocodeController : ControllerBase
 {
-    // In-memory storage for demo purposes
-    private static readonly List<PseudocodeDocument> Documents = new();
+    private readonly IPseudocodeService _pseudocodeService;
+
+    public PseudocodeController(IPseudocodeService pseudocodeService)
+    {
+        _pseudocodeService = pseudocodeService;
+    }
 
     /// <summary>
     /// Get all pseudocode documents
     /// </summary>
     [HttpGet]
-    public ActionResult<IEnumerable<PseudocodeDocument>> GetAll()
+    public async Task<ActionResult<IEnumerable<PseudocodeDocument>>> GetAll()
     {
-        return Ok(Documents);
+        var documents = await _pseudocodeService.GetAllDocumentsAsync();
+        return Ok(documents);
     }
 
     /// <summary>
     /// Get a specific pseudocode document by ID
     /// </summary>
     [HttpGet("{id}")]
-    public ActionResult<PseudocodeDocument> GetById(string id)
+    public async Task<ActionResult<PseudocodeDocument>> GetById(string id)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
+        var document = await _pseudocodeService.GetDocumentByIdAsync(id);
         if (document == null)
         {
             return NotFound(new { message = "Document not found" });
@@ -35,38 +41,27 @@ public class PseudocodeController : ControllerBase
 
     /// <summary>
     /// Create a new pseudocode document
+    /// Content is automatically validated and formatted according to Cambridge standards
     /// </summary>
     [HttpPost]
-    public ActionResult<PseudocodeDocument> Create([FromBody] CreatePseudocodeRequest request)
+    public async Task<ActionResult<PseudocodeDocument>> Create([FromBody] CreatePseudocodeRequest request)
     {
-        var document = new PseudocodeDocument
-        {
-            Title = request.Title,
-            Content = request.Content,
-            Language = request.Language
-        };
-        
-        Documents.Add(document);
+        var document = await _pseudocodeService.CreateDocumentAsync(request);
         return CreatedAtAction(nameof(GetById), new { id = document.Id }, document);
     }
 
     /// <summary>
     /// Update an existing pseudocode document
+    /// Content is automatically validated and formatted according to Cambridge standards
     /// </summary>
     [HttpPut("{id}")]
-    public ActionResult<PseudocodeDocument> Update(string id, [FromBody] UpdatePseudocodeRequest request)
+    public async Task<ActionResult<PseudocodeDocument>> Update(string id, [FromBody] UpdatePseudocodeRequest request)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
+        var document = await _pseudocodeService.UpdateDocumentAsync(id, request);
         if (document == null)
         {
             return NotFound(new { message = "Document not found" });
         }
-
-        document.Title = request.Title;
-        document.Content = request.Content;
-        document.Language = request.Language;
-        document.UpdatedAt = DateTime.UtcNow;
-
         return Ok(document);
     }
 
@@ -74,15 +69,33 @@ public class PseudocodeController : ControllerBase
     /// Delete a pseudocode document
     /// </summary>
     [HttpDelete("{id}")]
-    public ActionResult Delete(string id)
+    public async Task<ActionResult> Delete(string id)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
-        if (document == null)
+        var success = await _pseudocodeService.DeleteDocumentAsync(id);
+        if (!success)
         {
             return NotFound(new { message = "Document not found" });
         }
-
-        Documents.Remove(document);
         return NoContent();
+    }
+
+    /// <summary>
+    /// Validate pseudocode content without saving
+    /// </summary>
+    [HttpPost("validate")]
+    public async Task<ActionResult<ValidationResult>> Validate([FromBody] ValidateContentRequest request)
+    {
+        var result = await _pseudocodeService.ValidateContentAsync(request.Content);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Format pseudocode content according to Cambridge standards without saving
+    /// </summary>
+    [HttpPost("format")]
+    public async Task<ActionResult<FormatContentResponse>> Format([FromBody] FormatContentRequest request)
+    {
+        var formattedContent = await _pseudocodeService.FormatContentAsync(request.Content);
+        return Ok(new FormatContentResponse { FormattedContent = formattedContent });
     }
 }
