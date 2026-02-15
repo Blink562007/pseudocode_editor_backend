@@ -13,12 +13,13 @@ public class PseudocodeFormattingService : IPseudocodeFormattingService
     {
         "IF", "THEN", "ELSE", "ENDIF", "CASE", "OF", "OTHERWISE", "ENDCASE",
         "FOR", "TO", "STEP", "NEXT", "REPEAT", "UNTIL", "WHILE", "DO", "ENDWHILE",
-        "PROCEDURE", "ENDPROCEDURE", "FUNCTION", "RETURN", "ENDFUNCTION",
+        "PROCEDURE", "ENDPROCEDURE", "FUNCTION", "RETURN", "ENDFUNCTION", "RETURNS",
         "DECLARE", "CONSTANT", "ARRAY", "TYPE", "ENDTYPE",
         "CALL", "BYREF", "BYVAL", "OUTPUT", "INPUT",
         "OPENFILE", "READFILE", "WRITEFILE", "CLOSEFILE", "EOF",
         "AND", "OR", "NOT", "MOD", "DIV",
-        "CLASS", "ENDCLASS", "NEW", "PUBLIC", "PRIVATE", "INHERITS"
+        "CLASS", "ENDCLASS", "NEW", "PUBLIC", "PRIVATE", "INHERITS",
+        "STRING", "INTEGER", "REAL", "BOOLEAN", "CHAR", "DATE"
     };
 
     public Task<string> FormatAsync(string content)
@@ -185,8 +186,7 @@ public class PseudocodeFormattingService : IPseudocodeFormattingService
                trimmed.StartsWith("ENDFUNCTION") ||
                trimmed.StartsWith("ENDTYPE") ||
                trimmed.StartsWith("ENDCLASS") ||
-               trimmed.StartsWith("ELSE") ||
-               trimmed.StartsWith("OTHERWISE");
+               trimmed.StartsWith("ELSE");
     }
 
     private bool IsElseKeyword(string line)

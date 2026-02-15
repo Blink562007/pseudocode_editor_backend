@@ -38,9 +38,10 @@ public class PseudocodeService : IPseudocodeService
         // Process the content: validate and format
         var processedContent = await ProcessContentAsync(request.Content);
         
+        var trimmedTitle = request.Title?.Trim();
         var document = new PseudocodeDocument
         {
-            Title = request.Title?.Trim() ?? "Untitled",
+            Title = string.IsNullOrWhiteSpace(trimmedTitle) ? "Untitled" : trimmedTitle,
             Content = processedContent,
             Language = request.Language ?? "pseudocode"
         };
@@ -60,7 +61,8 @@ public class PseudocodeService : IPseudocodeService
         // Process the content: validate and format
         var processedContent = await ProcessContentAsync(request.Content);
         
-        document.Title = request.Title?.Trim() ?? document.Title;
+        var trimmedTitle = request.Title?.Trim();
+        document.Title = string.IsNullOrWhiteSpace(trimmedTitle) ? document.Title : trimmedTitle;
         document.Content = processedContent;
         document.Language = request.Language ?? document.Language;
         document.UpdatedAt = DateTime.UtcNow;

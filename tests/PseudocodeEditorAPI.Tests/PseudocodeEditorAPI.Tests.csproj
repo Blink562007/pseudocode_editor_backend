@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -21,11 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../PseudocodeEditorAPI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\..\src\PseudocodeEditorAPI.csproj" />
   </ItemGroup>
 
 </Project>

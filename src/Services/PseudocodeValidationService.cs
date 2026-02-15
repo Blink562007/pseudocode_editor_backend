@@ -13,7 +13,7 @@ public class PseudocodeValidationService : IPseudocodeValidationService
     {
         "IF", "THEN", "ELSE", "ENDIF", "CASE", "OF", "OTHERWISE", "ENDCASE",
         "FOR", "TO", "STEP", "NEXT", "REPEAT", "UNTIL", "WHILE", "DO", "ENDWHILE",
-        "PROCEDURE", "ENDPROCEDURE", "FUNCTION", "RETURN", "ENDFUNCTION",
+        "PROCEDURE", "ENDPROCEDURE", "FUNCTION", "RETURNS", "ENDFUNCTION",
         "DECLARE", "CONSTANT", "ARRAY", "TYPE", "ENDTYPE",
         "CALL", "BYREF", "BYVAL", "OUTPUT", "INPUT",
         "OPENFILE", "READFILE", "WRITEFILE", "CLOSEFILE", "EOF",

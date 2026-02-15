@@ -211,7 +211,7 @@ ENDIF";
         "REPEAT", "UNTIL",
         "WHILE", "DO", "ENDWHILE",
         "PROCEDURE", "ENDPROCEDURE",
-        "FUNCTION", "RETURN", "ENDFUNCTION", "RETURNS",
+        "FUNCTION", "RETURNS", "ENDFUNCTION",
         "DECLARE", "CONSTANT",
         "ARRAY", "TYPE", "ENDTYPE",
         "CALL", "BYREF", "BYVAL",

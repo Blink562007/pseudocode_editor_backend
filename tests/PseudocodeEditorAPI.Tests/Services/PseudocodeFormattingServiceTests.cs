@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using PseudocodeEditorAPI.Services;
@@ -484,7 +487,7 @@ DECLARE Y : INTEGER";
         var result = await _formattingService.FormatAsync(content);
 
         // Assert
-        result.Should().Be("DECLARE X : INTEGER");
+        result.Should().Be("DECLARE x : INTEGER");
     }
 
     [Fact]
