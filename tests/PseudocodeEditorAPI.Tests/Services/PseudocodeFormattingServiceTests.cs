@@ -13,11 +13,11 @@ namespace PseudocodeEditorAPI.Tests.Services;
 /// Tests internal formatting algorithms against Cambridge International standards
 /// Validates keyword capitalization, indentation logic, and structure preservation
 /// </summary>
-public class PseudocodeFormattingServiceTests
+public class PseudocodeFormattingService_KeywordCapitalizationTests
 {
     private readonly PseudocodeFormattingService _formattingService;
 
-    public PseudocodeFormattingServiceTests()
+    public PseudocodeFormattingService_KeywordCapitalizationTests()
     {
         _formattingService = new PseudocodeFormattingService();
     }
@@ -102,6 +102,16 @@ EndIf";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_IndentationTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_IndentationTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Indentation Tests
 
@@ -282,6 +292,16 @@ ENDFUNCTION";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_CommentPreservationTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_CommentPreservationTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Comment Preservation Tests
 
@@ -320,6 +340,16 @@ ENDIF";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_StringLiteralPreservationTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_StringLiteralPreservationTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region String Literal Preservation Tests
 
@@ -382,6 +412,16 @@ OUTPUT Ch";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_IdentifierPreservationTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_IdentifierPreservationTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Identifier Preservation Tests
 
@@ -419,6 +459,16 @@ ENDPROCEDURE";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_EdgeCasesAndBoundaryTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_EdgeCasesAndBoundaryTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Edge Cases and Boundary Tests
 
@@ -509,6 +559,16 @@ DECLARE Y : INTEGER";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_ComplexRealWorldExamplesTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_ComplexRealWorldExamplesTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Complex Real-World Examples Tests
 
@@ -596,6 +656,16 @@ endclass";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_OperatorsAndSymbolsTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_OperatorsAndSymbolsTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Operators and Symbols Tests
 
@@ -681,6 +751,16 @@ ENDIF";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_ArrayAndDataStructureTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_ArrayAndDataStructureTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Array and Data Structure Tests
 
@@ -717,6 +797,16 @@ OUTPUT StudentNames[Index]";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_PerformanceTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_PerformanceTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Performance Tests
 
@@ -741,6 +831,16 @@ OUTPUT StudentNames[Index]";
     }
 
     #endregion
+}
+
+public class PseudocodeFormattingService_IdempotencyTests
+{
+    private readonly PseudocodeFormattingService _formattingService;
+
+    public PseudocodeFormattingService_IdempotencyTests()
+    {
+        _formattingService = new PseudocodeFormattingService();
+    }
 
     #region Idempotency Tests
 

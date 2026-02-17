@@ -1,4 +1,5 @@
 using PseudocodeEditorAPI.Models;
+using PseudocodeEditorAPI.Data.Repositories;
 
 namespace PseudocodeEditorAPI.Services;
 
@@ -8,29 +9,28 @@ namespace PseudocodeEditorAPI.Services;
 /// </summary>
 public class PseudocodeService : IPseudocodeService
 {
-    // In-memory storage for demo purposes
-    private static readonly List<PseudocodeDocument> Documents = new();
-    
+    private readonly IPseudocodeDocumentRepository _repository;
     private readonly IPseudocodeValidationService _validationService;
     private readonly IPseudocodeFormattingService _formattingService;
 
     public PseudocodeService(
+        IPseudocodeDocumentRepository repository,
         IPseudocodeValidationService validationService,
         IPseudocodeFormattingService formattingService)
     {
+        _repository = repository;
         _validationService = validationService;
         _formattingService = formattingService;
     }
 
-    public Task<IEnumerable<PseudocodeDocument>> GetAllDocumentsAsync()
+    public async Task<IEnumerable<PseudocodeDocument>> GetAllDocumentsAsync()
     {
-        return Task.FromResult<IEnumerable<PseudocodeDocument>>(Documents);
+        return await _repository.GetAllAsync();
     }
 
-    public Task<PseudocodeDocument?> GetDocumentByIdAsync(string id)
+    public async Task<PseudocodeDocument?> GetDocumentByIdAsync(string id)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
-        return Task.FromResult(document);
+        return await _repository.GetByIdAsync(id);
     }
 
     public async Task<PseudocodeDocument> CreateDocumentAsync(CreatePseudocodeRequest request)
@@ -45,41 +45,33 @@ public class PseudocodeService : IPseudocodeService
             Content = processedContent,
             Language = request.Language ?? "pseudocode"
         };
-        
-        Documents.Add(document);
-        return document;
+
+        return await _repository.CreateAsync(document);
     }
 
     public async Task<PseudocodeDocument?> UpdateDocumentAsync(string id, UpdatePseudocodeRequest request)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
-        if (document == null)
+        var existing = await _repository.GetByIdAsync(id);
+        if (existing == null)
         {
             return null;
         }
 
         // Process the content: validate and format
         var processedContent = await ProcessContentAsync(request.Content);
-        
-        var trimmedTitle = request.Title?.Trim();
-        document.Title = string.IsNullOrWhiteSpace(trimmedTitle) ? document.Title : trimmedTitle;
-        document.Content = processedContent;
-        document.Language = request.Language ?? document.Language;
-        document.UpdatedAt = DateTime.UtcNow;
 
-        return document;
+        var trimmedTitle = request.Title?.Trim();
+        existing.Title = string.IsNullOrWhiteSpace(trimmedTitle) ? existing.Title : trimmedTitle;
+        existing.Content = processedContent;
+        existing.Language = request.Language ?? existing.Language;
+        existing.UpdatedAt = DateTime.UtcNow;
+
+        return await _repository.UpdateAsync(existing);
     }
 
-    public Task<bool> DeleteDocumentAsync(string id)
+    public async Task<bool> DeleteDocumentAsync(string id)
     {
-        var document = Documents.FirstOrDefault(d => d.Id == id);
-        if (document == null)
-        {
-            return Task.FromResult(false);
-        }
-
-        Documents.Remove(document);
-        return Task.FromResult(true);
+        return await _repository.DeleteAsync(id);
     }
 
     public async Task<ValidationResult> ValidateContentAsync(string content)
@@ -104,7 +96,7 @@ public class PseudocodeService : IPseudocodeService
         }
 
         // Step 1: Validate the content
-        var validationResult = await _validationService.ValidateAsync(content);
+        _ = await _validationService.ValidateAsync(content);
         
         // Step 2: Auto-format the content to meet Cambridge standards
         var formattedContent = await _formattingService.FormatAsync(content);

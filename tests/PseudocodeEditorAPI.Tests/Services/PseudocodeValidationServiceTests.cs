@@ -13,11 +13,11 @@ namespace PseudocodeEditorAPI.Tests.Services;
 /// Tests internal validation logic against Cambridge International AS & A Level standards
 /// Combines knowledge of implementation (keywords, regex patterns) with requirements validation
 /// </summary>
-public class PseudocodeValidationServiceTests
+public class PseudocodeValidationService_ValidCodeTests
 {
     private readonly PseudocodeValidationService _validationService;
 
-    public PseudocodeValidationServiceTests()
+    public PseudocodeValidationService_ValidCodeTests()
     {
         _validationService = new PseudocodeValidationService();
     }
@@ -123,6 +123,16 @@ public class PseudocodeValidationServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_KeywordCaseValidationTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_KeywordCaseValidationTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Keyword Case Validation Tests
 
@@ -176,6 +186,16 @@ EndIf";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_IdentifierCaseValidationTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_IdentifierCaseValidationTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Identifier Case Validation Tests
 
@@ -223,6 +243,16 @@ DECLARE IsValid : BOOLEAN";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_IndentationValidationTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_IndentationValidationTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Indentation Validation Tests
 
@@ -281,6 +311,16 @@ DECLARE IsValid : BOOLEAN";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_SyntaxErrorTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_SyntaxErrorTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Syntax Error Tests
 
@@ -354,6 +394,16 @@ DECLARE IsValid : BOOLEAN";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_EdgeCasesAndBoundaryTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_EdgeCasesAndBoundaryTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Edge Cases and Boundary Tests
 
@@ -481,6 +531,16 @@ DECLARE IsValid : BOOLEAN";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_LineNumberAccuracyTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_LineNumberAccuracyTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Line Number Accuracy Tests
 
@@ -521,6 +581,16 @@ DECLARE Z : INTEGER";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_CambridgeRequirementsCoverageTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_CambridgeRequirementsCoverageTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Cambridge Requirements Coverage Tests
 
@@ -583,6 +653,16 @@ ENDCASE";
     }
 
     #endregion
+}
+
+public class PseudocodeValidationService_PerformanceAndStressTests
+{
+    private readonly PseudocodeValidationService _validationService;
+
+    public PseudocodeValidationService_PerformanceAndStressTests()
+    {
+        _validationService = new PseudocodeValidationService();
+    }
 
     #region Performance and Stress Tests
 

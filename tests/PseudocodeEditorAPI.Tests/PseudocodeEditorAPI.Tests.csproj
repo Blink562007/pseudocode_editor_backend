@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\src\PseudocodeEditorAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

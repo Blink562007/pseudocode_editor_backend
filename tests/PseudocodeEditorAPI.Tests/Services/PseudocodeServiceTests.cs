@@ -5,6 +5,7 @@ using Xunit;
 using FluentAssertions;
 using Moq;
 using PseudocodeEditorAPI.Models;
+using PseudocodeEditorAPI.Data.Repositories;
 using PseudocodeEditorAPI.Services;
 using PseudocodeEditorAPI.Tests.TestData;
 
@@ -15,17 +16,19 @@ namespace PseudocodeEditorAPI.Tests.Services;
 /// Tests orchestration logic with mocked dependencies
 /// Validates CRUD operations, validation integration, and formatting workflows
 /// </summary>
-public class PseudocodeServiceTests
+public class PseudocodeService_CreateDocumentTests
 {
     private readonly Mock<IPseudocodeValidationService> _mockValidationService;
     private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
     private readonly PseudocodeService _service;
 
-    public PseudocodeServiceTests()
+    public PseudocodeService_CreateDocumentTests()
     {
         _mockValidationService = new Mock<IPseudocodeValidationService>();
         _mockFormattingService = new Mock<IPseudocodeFormattingService>();
-        _service = new PseudocodeService(_mockValidationService.Object, _mockFormattingService.Object);
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
     }
 
     #region Create Document Tests
@@ -241,6 +244,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_GetDocumentTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_GetDocumentTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Get Document Tests
 
@@ -303,23 +322,37 @@ public class PseudocodeServiceTests
         var result = await _service.GetAllDocumentsAsync();
 
         // Assert
-        result.Should().HaveCountGreaterOrEqualTo(3);
+        result.Should().HaveCount(3);
     }
 
     [Fact]
     public async Task GetAllDocumentsAsync_WithNoDocuments_ShouldReturnEmpty()
     {
-        // Note: Since we're using static in-memory storage, this might not be truly empty
-        // In a real scenario, you'd want to clear the storage or use a fresh instance
-        
         // Act
         var result = await _service.GetAllDocumentsAsync();
 
         // Assert
         result.Should().NotBeNull();
+        result.Should().BeEmpty();
     }
 
     #endregion
+}
+
+public class PseudocodeService_UpdateDocumentTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_UpdateDocumentTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Update Document Tests
 
@@ -511,6 +544,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_DeleteDocumentTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_DeleteDocumentTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Delete Document Tests
 
@@ -576,6 +625,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_ValidationIntegrationTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_ValidationIntegrationTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Validation Service Integration Tests
 
@@ -625,6 +690,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_FormattingIntegrationTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_FormattingIntegrationTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Formatting Service Integration Tests
 
@@ -648,6 +729,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_ContentProcessingWorkflowTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_ContentProcessingWorkflowTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Content Processing Workflow Tests
 
@@ -709,6 +806,22 @@ public class PseudocodeServiceTests
     }
 
     #endregion
+}
+
+public class PseudocodeService_EdgeCasesTests
+{
+    private readonly Mock<IPseudocodeValidationService> _mockValidationService;
+    private readonly Mock<IPseudocodeFormattingService> _mockFormattingService;
+    private readonly IPseudocodeDocumentRepository _repository;
+    private readonly PseudocodeService _service;
+
+    public PseudocodeService_EdgeCasesTests()
+    {
+        _mockValidationService = new Mock<IPseudocodeValidationService>();
+        _mockFormattingService = new Mock<IPseudocodeFormattingService>();
+        _repository = new InMemoryPseudocodeDocumentRepository();
+        _service = new PseudocodeService(_repository, _mockValidationService.Object, _mockFormattingService.Object);
+    }
 
     #region Edge Cases
 
@@ -720,7 +833,7 @@ public class PseudocodeServiceTests
         {
             Title = "Test",
             Content = "X ← 1",
-            Language = null
+            Language = null!
         };
 
         _mockValidationService
