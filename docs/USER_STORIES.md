@@ -47,6 +47,11 @@ See [US-1.8.md](./user-stories/phase-1/US-1.8.md)
 
 ---
 
+### US-1.9 · Rename a document with explicit action
+See [US-1.9.md](./user-stories/phase-1/US-1.9.md)
+
+---
+
 ## Phase 2 — Authentication + Persistent Storage
 
 ### US-2.1 · Register an account
