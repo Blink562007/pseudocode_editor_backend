@@ -28,6 +28,7 @@ builder.Services.AddScoped<IPseudocodeDocumentRepository, PseudocodeDocumentRepo
 builder.Services.AddScoped<IPseudocodeService, PseudocodeService>();
 builder.Services.AddScoped<IPseudocodeValidationService, PseudocodeValidationService>();
 builder.Services.AddScoped<IPseudocodeFormattingService, PseudocodeFormattingService>();
+builder.Services.AddScoped<IPseudocodeExecutionService, PseudocodeExecutionService>();
 
 // Add CORS policy
 builder.Services.AddCors(options =>

@@ -9,10 +9,14 @@ namespace PseudocodeEditorAPI.Controllers;
 public class PseudocodeController : ControllerBase
 {
     private readonly IPseudocodeService _pseudocodeService;
+    private readonly IPseudocodeExecutionService _executionService;
 
-    public PseudocodeController(IPseudocodeService pseudocodeService)
+    public PseudocodeController(
+        IPseudocodeService pseudocodeService,
+        IPseudocodeExecutionService executionService)
     {
         _pseudocodeService = pseudocodeService;
+        _executionService = executionService;
     }
 
     /// <summary>
@@ -97,5 +101,20 @@ public class PseudocodeController : ControllerBase
     {
         var formattedContent = await _pseudocodeService.FormatContentAsync(request.Content);
         return Ok(new FormatContentResponse { FormattedContent = formattedContent });
+    }
+
+    /// <summary>
+    /// Execute pseudocode and return output events and runtime errors
+    /// </summary>
+    [HttpPost("execute")]
+    public async Task<ActionResult<ExecuteCodeResponse>> Execute([FromBody] ExecuteCodeRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Content))
+        {
+            return BadRequest(new { message = "Content is required" });
+        }
+
+        var result = await _executionService.ExecuteAsync(request.Content);
+        return Ok(result);
     }
 }
