@@ -57,12 +57,17 @@ public class PseudocodeService : IPseudocodeService
             return null;
         }
 
-        // Process the content: validate and format
-        var processedContent = await ProcessContentAsync(request.Content);
-
+        // Update title with default to "Untitled" if empty
         var trimmedTitle = request.Title?.Trim();
-        existing.Title = string.IsNullOrWhiteSpace(trimmedTitle) ? existing.Title : trimmedTitle;
-        existing.Content = processedContent;
+        existing.Title = string.IsNullOrWhiteSpace(trimmedTitle) ? "Untitled" : trimmedTitle;
+
+        // Process content only if it has changed (optimization for rename-only updates)
+        var contentChanged = request.Content != existing.Content;
+        if (contentChanged)
+        {
+            existing.Content = await ProcessContentAsync(request.Content);
+        }
+
         existing.Language = request.Language ?? existing.Language;
         existing.UpdatedAt = DateTime.UtcNow;
 
